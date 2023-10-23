@@ -1,11 +1,10 @@
-import { useState } from 'react';
 import './Form.scss';
 
 function Form(props) {
-  const [formData, setFormData] = useState({
+  const formData = {
     method: 'GET',
     url: 'https://pokeapi.co/api/v2/pokemon',
-  });
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
