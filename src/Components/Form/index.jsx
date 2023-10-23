@@ -31,23 +31,3 @@ function Form(props) {
 }
 
 export default Form;
-
-// class Form extends React.Component {
-
-//   handleSubmit = e => {
-//     e.preventDefault();
-//     const formData = {
-//       method:'GET',
-//       url: 'https://pokeapi.co/api/v2/pokemon',
-//     };
-//     this.props.handleApiCall(formData);
-//   }
-
-//   render() {
-//     return (
-
-//     );
-//   }
-// }
-
-// export default Form;
