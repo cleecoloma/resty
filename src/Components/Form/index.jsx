@@ -2,7 +2,9 @@ import './Form.scss';
 
 function Form({ request, setRequest, handleRequest, loading }) {
   return (
-    <div>
+    <div className='form-container'>
+      {' '}
+      {/* Apply the form-container class */}
       <label>
         URL:
         <input
@@ -17,7 +19,7 @@ function Form({ request, setRequest, handleRequest, loading }) {
           value={request.method}
           onChange={(e) => setRequest({ ...request, method: e.target.value })}
         >
-          <option value='get' defaultChecked>GET</option>
+          <option value='get'>GET</option>
           <option value='post'>POST</option>
           <option value='put'>PUT</option>
           <option value='delete'>DELETE</option>

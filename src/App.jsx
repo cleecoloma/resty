@@ -17,12 +17,10 @@ function App() {
     try {
       setLoading(true);
 
-      // Use Axios to make the API request.
       const response = await axios({
         method: request.method,
         url: request.url,
         data: request.body,
-        // Add headers and other configuration as needed.
       });
 
       setResponse(response.data);
@@ -34,14 +32,16 @@ function App() {
   };
 
   return (
-    <div>
-      <Form
-        request={request}
-        setRequest={setRequest}
-        handleRequest={handleRequest}
-        loading={loading}
-      />
-      <Results response={response} loading={loading} />
+    <div className='App'>
+      <div className='container'>
+        <Form
+          request={request}
+          setRequest={setRequest}
+          handleRequest={handleRequest}
+          loading={loading}
+        />
+        <Results response={response} loading={loading} />
+      </div>
     </div>
   );
 }

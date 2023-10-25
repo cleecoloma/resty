@@ -1,0 +1,17 @@
+// Results.scss
+@import '../../assets/variables';
+
+.results-container {
+  margin: 20px;
+  padding: 10px;
+  border: 1px solid $primary-color;
+  border-radius: 5px;
+
+  pre {
+    white-space: pre-wrap;
+  }
+
+  .loading {
+    color: $primary-color;
+  }
+}

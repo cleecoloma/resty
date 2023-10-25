@@ -1,8 +1,10 @@
+import './Results.scss';
+
 function Results({ response, loading }) {
   return (
-    <div>
+    <div className="results-container">
       {loading ? (
-        <div>Loading...</div>
+        <div className="loading">Loading...</div>
       ) : (
         <pre>{JSON.stringify(response, null, 2)}</pre>
       )}
