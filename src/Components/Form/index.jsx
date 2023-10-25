@@ -23,6 +23,7 @@ function Form({ request, setRequest, loading }) {
       <label>
         Request Method:
         <select value={method} onChange={(e) => setMethod(e.target.value)}>
+          <option value=''>Select Method</option>
           <option value='get'>GET</option>
           <option value='post'>POST</option>
           <option value='put'>PUT</option>

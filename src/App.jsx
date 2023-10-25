@@ -8,7 +8,7 @@ import axios from 'axios';
 
 function App() {
   const [request, setRequest] = useState({
-    method: 'get',
+    method: '',
     url: '',
     body: '',
   });
@@ -33,7 +33,7 @@ function App() {
       }
     };
 
-    if (request.method && request.url) {
+    if (request.method || request.url || request.body) {
       fetchData();
     }
   }, [request]);
