@@ -1,50 +1,55 @@
-import React from 'react';
-
 import './App.scss';
-
-// Let's talk about using index.js and some other name in the component folder.
-// There's pros and cons for each way of doing this...
-// OFFICIALLY, we have chosen to use the Airbnb style guide naming convention. 
-// Why is this source of truth beneficial when spread across a global organization?
+import React, { useState } from 'react';
 import Header from './Components/Header';
-import Footer from './Components/Footer';
 import Form from './Components/Form';
 import Results from './Components/Results';
+import Footer from './Components/Footer';
+import axios from 'axios';
 
-class App extends React.Component {
+function App() {
+  const [request, setRequest] = useState({
+    method: 'get',
+    url: '',
+    body: '',
+  });
+  const [response, setResponse] = useState(null);
+  const [loading, setLoading] = useState(false);
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      data: null,
-      requestParams: {},
-    };
-  }
+  const handleRequest = async () => {
+    try {
+      setLoading(true);
 
-  callApi = (requestParams) => {
-    // mock output
-    const data = {
-      count: 2,
-      results: [
-        {name: 'fake thing 1', url: 'http://fakethings.com/1'},
-        {name: 'fake thing 2', url: 'http://fakethings.com/2'},
-      ],
-    };
-    this.setState({data, requestParams});
-  }
+      const response = await axios({
+        method: request.method,
+        url: request.url,
+        data: request.body,
+      });
 
-  render() {
-    return (
-      <React.Fragment>
-        <Header />
-        <div>Request Method: {this.state.requestParams.method}</div>
-        <div>URL: {this.state.requestParams.url}</div>
-        <Form handleApiCall={this.callApi} />
-        <Results data={this.state.data} />
-        <Footer />
-      </React.Fragment>
-    );
-  }
+      const { data, headers } = response;
+
+      setResponse({ data, headers });
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return (
+    <div className='App'>
+      <Header />
+      <div className='container'>
+        <Form
+          request={request}
+          setRequest={setRequest}
+          handleRequest={handleRequest}
+          loading={loading}
+        />
+        <Results response={response} loading={loading} />
+      </div>
+      <Footer />
+    </div>
+  );
 }
 
 export default App;
