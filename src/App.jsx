@@ -1,29 +1,48 @@
-import React, { useState } from 'react';
-
 import './App.scss';
-
-// Let's talk about using index.js and some other name in the component folder.
-// There's pros and cons for each way of doing this...
-// OFFICIALLY, we have chosen to use the Airbnb style guide naming convention.
-// Why is this source of truth beneficial when spread across a global organization?
-import Header from './Components/Header';
-import Footer from './Components/Footer';
+import React, { useState } from 'react';
 import Form from './Components/Form';
 import Results from './Components/Results';
+import axios from 'axios';
 
 function App() {
-  const [requestData, setRequestData] = useState();
-  const [responseData, setResponseData] = useState();
+  const [request, setRequest] = useState({
+    method: 'get',
+    url: '',
+    body: '',
+  });
+  const [response, setResponse] = useState(null);
+  const [loading, setLoading] = useState(false);
+
+  const handleRequest = async () => {
+    try {
+      setLoading(true);
+
+      // Use Axios to make the API request.
+      const response = await axios({
+        method: request.method,
+        url: request.url,
+        data: request.body,
+        // Add headers and other configuration as needed.
+      });
+
+      setResponse(response.data);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
-    <>
-      <Header />
-      {/* <div>Request Method: {this.state.requestParams.method}</div>
-      <div>URL: {this.state.requestParams.url}</div> */}
-      <Form />
-      <Results />
-      <Footer />
-    </>
+    <div>
+      <Form
+        request={request}
+        setRequest={setRequest}
+        handleRequest={handleRequest}
+        loading={loading}
+      />
+      <Results response={response} loading={loading} />
+    </div>
   );
 }
 

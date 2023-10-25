@@ -1,6 +1,6 @@
 import './Form.scss';
 
-function Form({ request, setRequest, handleApiCall, loading }) {
+function Form({ request, setRequest, handleRequest, loading }) {
   return (
     <div>
       <label>
@@ -17,7 +17,7 @@ function Form({ request, setRequest, handleApiCall, loading }) {
           value={request.method}
           onChange={(e) => setRequest({ ...request, method: e.target.value })}
         >
-          <option value='get'>GET</option>
+          <option value='get' defaultChecked>GET</option>
           <option value='post'>POST</option>
           <option value='put'>PUT</option>
           <option value='delete'>DELETE</option>
@@ -32,7 +32,7 @@ function Form({ request, setRequest, handleApiCall, loading }) {
           />
         </label>
       ) : null}
-      <button onClick={handleApiCall} disabled={loading}>
+      <button onClick={handleRequest} disabled={loading}>
         {loading ? 'Loading...' : 'Submit'}
       </button>
     </div>
