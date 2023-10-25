@@ -4,9 +4,8 @@ function Form({ request, setRequest, handleRequest, loading }) {
   return (
     <div className='form-container'>
       {' '}
-      {/* Apply the form-container class */}
       <label>
-        URL:
+        URL: 
         <input
           type='text'
           value={request.url}

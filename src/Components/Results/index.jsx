@@ -5,9 +5,9 @@ function Results({ response, loading }) {
     <div className="results-container">
       {loading ? (
         <div className="loading">Loading...</div>
-      ) : (
-        <pre>{JSON.stringify(response, null, 2)}</pre>
-      )}
+      ) :
+        response ? (<pre>{JSON.stringify(response, null, 2)}</pre>) : null
+      }
     </div>
   );
 }
