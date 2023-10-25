@@ -1,32 +1,41 @@
 import './Form.scss';
 
-function Form(props) {
-  const formData = {
-    method: 'GET',
-    url: 'https://pokeapi.co/api/v2/pokemon',
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    props.handleApiCall(formData);
-  };
-
+function Form({ request, setRequest, handleApiCall, loading }) {
   return (
-    <>
-      <form onSubmit={handleSubmit}>
+    <div>
+      <label>
+        URL:
+        <input
+          type='text'
+          value={request.url}
+          onChange={(e) => setRequest({ ...request, url: e.target.value })}
+        />
+      </label>
+      <label>
+        Request Method:
+        <select
+          value={request.method}
+          onChange={(e) => setRequest({ ...request, method: e.target.value })}
+        >
+          <option value='get'>GET</option>
+          <option value='post'>POST</option>
+          <option value='put'>PUT</option>
+          <option value='delete'>DELETE</option>
+        </select>
+      </label>
+      {request.method === 'post' || request.method === 'put' ? (
         <label>
-          <span>URL: </span>
-          <input name='url' type='text' />
-          <button type='submit'>GO!</button>
+          Request Body (JSON):
+          <textarea
+            value={request.body}
+            onChange={(e) => setRequest({ ...request, body: e.target.value })}
+          />
         </label>
-        <label className='methods'>
-          <span id='get'>GET</span>
-          <span id='post'>POST</span>
-          <span id='put'>PUT</span>
-          <span id='delete'>DELETE</span>
-        </label>
-      </form>
-    </>
+      ) : null}
+      <button onClick={handleApiCall} disabled={loading}>
+        {loading ? 'Loading...' : 'Submit'}
+      </button>
+    </div>
   );
 }
 

@@ -1,10 +1,12 @@
-function Results(props) {
+function Results({ response, loading }) {
   return (
-    <section>
-      <pre>
-        {props.data ? JSON.stringify(props.data, undefined, 2) : null}
-      </pre>
-    </section>
+    <div>
+      {loading ? (
+        <div>Loading...</div>
+      ) : (
+        <pre>{JSON.stringify(response, null, 2)}</pre>
+      )}
+    </div>
   );
 }
 
