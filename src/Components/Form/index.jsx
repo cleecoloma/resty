@@ -7,9 +7,7 @@ function Form({ request, setRequest, loading }) {
   const [body, setBody] = useState(request.body);
 
   const handleSubmit = () => {
-    // Update the request object when the button is clicked
     setRequest({ url, method, body });
-    // handleRequest();
   };
 
   return (
@@ -25,6 +23,7 @@ function Form({ request, setRequest, loading }) {
       <label>
         Request Method:
         <select value={method} onChange={(e) => setMethod(e.target.value)}>
+          <option value=''>Select Method</option>
           <option value='get'>GET</option>
           <option value='post'>POST</option>
           <option value='put'>PUT</option>

@@ -1,4 +1,6 @@
 import './Results.scss';
+import JSONPretty from 'react-json-pretty';
+import 'react-json-pretty/themes/monikai.css';
 
 function Results({ response, loading }) {
   return (
@@ -8,9 +10,9 @@ function Results({ response, loading }) {
       ) : response ? (
         <div>
           <h2>Response Headers:</h2>
-          <pre>{JSON.stringify(response.headers, null, 2)}</pre>
+          <JSONPretty id='json-pretty-headers' data={response.headers} />
           <h2>Response Data:</h2>
-          <pre>{JSON.stringify(response.data, null, 2)}</pre>
+          <JSONPretty id='json-pretty-data' data={response.data} />
         </div>
       ) : null}
     </div>

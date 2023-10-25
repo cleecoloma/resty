@@ -33,8 +33,7 @@ function App() {
       }
     };
 
-    // Fetch data when the 'request' object changes
-    if (request.method && request.url) {
+    if (request.method || request.url || request.body) {
       fetchData();
     }
   }, [request]);
