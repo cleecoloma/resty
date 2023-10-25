@@ -1,7 +1,9 @@
 import './App.scss';
 import React, { useState } from 'react';
+import Header from './Components/Header';
 import Form from './Components/Form';
 import Results from './Components/Results';
+import Footer from './Components/Footer';
 import axios from 'axios';
 
 function App() {
@@ -33,6 +35,7 @@ function App() {
 
   return (
     <div className='App'>
+      <Header />
       <div className='container'>
         <Form
           request={request}
@@ -42,6 +45,7 @@ function App() {
         />
         <Results response={response} loading={loading} />
       </div>
+      <Footer />
     </div>
   );
 }
