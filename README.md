@@ -10,6 +10,9 @@
 > Start with: `npm install`
 
 ## Usage
+
+> Test: `npm test`
+
 Request:
 ```text
 method: GET || POST || PUT || DELETE
