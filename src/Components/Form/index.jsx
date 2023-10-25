@@ -1,39 +1,43 @@
+import React, { useState } from 'react';
 import './Form.scss';
 
-function Form({ request, setRequest, handleRequest, loading }) {
+function Form({ request, setRequest, loading }) {
+  const [url, setUrl] = useState(request.url);
+  const [method, setMethod] = useState(request.method);
+  const [body, setBody] = useState(request.body);
+
+  const handleSubmit = () => {
+    // Update the request object when the button is clicked
+    setRequest({ url, method, body });
+    // handleRequest();
+  };
+
   return (
     <div className='form-container'>
-      {' '}
       <label>
-        URL: 
+        URL:
         <input
           type='text'
-          value={request.url}
-          onChange={(e) => setRequest({ ...request, url: e.target.value })}
+          value={url}
+          onChange={(e) => setUrl(e.target.value)}
         />
       </label>
       <label>
         Request Method:
-        <select
-          value={request.method}
-          onChange={(e) => setRequest({ ...request, method: e.target.value })}
-        >
+        <select value={method} onChange={(e) => setMethod(e.target.value)}>
           <option value='get'>GET</option>
           <option value='post'>POST</option>
           <option value='put'>PUT</option>
           <option value='delete'>DELETE</option>
         </select>
       </label>
-      {request.method === 'post' || request.method === 'put' ? (
+      {method === 'post' || method === 'put' ? (
         <label>
           Request Body (JSON):
-          <textarea
-            value={request.body}
-            onChange={(e) => setRequest({ ...request, body: e.target.value })}
-          />
+          <textarea value={body} onChange={(e) => setBody(e.target.value)} />
         </label>
       ) : null}
-      <button onClick={handleRequest} disabled={loading}>
+      <button onClick={handleSubmit} disabled={loading}>
         {loading ? 'Loading...' : 'Submit'}
       </button>
     </div>
