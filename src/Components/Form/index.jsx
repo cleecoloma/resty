@@ -7,9 +7,7 @@ function Form({ request, setRequest, loading }) {
   const [body, setBody] = useState(request.body);
 
   const handleSubmit = () => {
-    // Update the request object when the button is clicked
     setRequest({ url, method, body });
-    // handleRequest();
   };
 
   return (
