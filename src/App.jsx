@@ -25,7 +25,9 @@ function App() {
         data: request.body,
       });
 
-      setResponse(response.data);
+      const { data, headers } = response;
+
+      setResponse({ data, headers });
     } catch (error) {
       console.error(error);
     } finally {
