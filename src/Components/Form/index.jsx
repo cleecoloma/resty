@@ -1,13 +1,35 @@
-import React, { useState } from 'react';
+import React, { useReducer } from 'react';
 import './Form.scss';
 
-function Form({ request, setRequest, loading }) {
-  const [url, setUrl] = useState(request.url);
-  const [method, setMethod] = useState(request.method);
-  const [body, setBody] = useState(request.body);
+const formReducer = (state, action) => {
+  switch (action.type) {
+    case 'updateUrl':
+      return { ...state, url: action.payload };
+    case 'updateMethod':
+      return { ...state, method: action.payload };
+    case 'updateBody':
+      return { ...state, body: action.payload };
+    default:
+      return state;
+  }
+};
+
+function Form({ dispatch, loading}) {
+  const [state, formDispatch] = useReducer(formReducer, {
+    url: '',
+    method: '',
+    body: '',
+  });
 
   const handleSubmit = () => {
-    setRequest({ url, method, body });
+    dispatch({
+      type: 'updateRequest',
+      payload: {
+        url: state.url,
+        method: state.method,
+        body: state.body,
+      },
+    });
   };
 
   return (
@@ -16,13 +38,20 @@ function Form({ request, setRequest, loading }) {
         URL:
         <input
           type='text'
-          value={url}
-          onChange={(e) => setUrl(e.target.value)}
+          value={state.method}
+          onChange={(e) =>
+            formDispatch({ type: 'updateMethod', payload: e.target.value })
+          }
         />
       </label>
       <label>
         Request Method:
-        <select value={method} onChange={(e) => setMethod(e.target.value)}>
+        <select
+          value={state.method}
+          onChange={(e) =>
+            formDispatch({ type: 'updateMethod', payload: e.target.value })
+          }
+        >
           <option value=''>Select Method</option>
           <option value='get'>GET</option>
           <option value='post'>POST</option>
@@ -30,10 +59,15 @@ function Form({ request, setRequest, loading }) {
           <option value='delete'>DELETE</option>
         </select>
       </label>
-      {method === 'post' || method === 'put' ? (
+      {state.method === 'post' || state.method === 'put' ? (
         <label>
           Request Body (JSON):
-          <textarea value={body} onChange={(e) => setBody(e.target.value)} />
+          <textarea
+            value={state.body}
+            onChange={(e) =>
+              formDispatch({ type: 'updateBody', payload: e.target.value })
+            }
+          />
         </label>
       ) : null}
       <button onClick={handleSubmit} disabled={loading}>
