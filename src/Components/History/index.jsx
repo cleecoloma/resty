@@ -1,11 +1,11 @@
-import './Header.scss';
+import './History.scss';
 
-function Header() {
+function History() {
   return (
-    <header>
-      <h1>RESTy</h1>
-    </header>
+    <div className='history-container'>
+       <h2>History</h2>
+    </div>
   );
 }
 
-export default Header;
+export default History;

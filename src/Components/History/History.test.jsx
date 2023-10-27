@@ -1,8 +1,8 @@
 import { render, screen } from '@testing-library/react';
-import Header from './index';
+import History from './index';
 
-test('Header component renders correctly', () => {
-  render(<Header />);
+test('History component renders correctly', () => {
+  render(<History />);
 
   const headerText = screen.getByText(/RESTy/i);
   expect(headerText).toBeInTheDocument();

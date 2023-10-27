@@ -1,5 +1,8 @@
 @import '../../assets/variables';
 
-header {
-  color: $tertiary-color;
+.history-container {
+  margin: 20px;
+  padding: 0 10px;
+  border: 1px solid $primary-color;
+  border-radius: 5px;
 }

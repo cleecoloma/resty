@@ -2,6 +2,7 @@ import './App.scss';
 import React, { useState, useEffect } from 'react';
 import Header from './Components/Header';
 import Form from './Components/Form';
+import History from './Components/History';
 import Results from './Components/Results';
 import Footer from './Components/Footer';
 import axios from 'axios';
@@ -42,12 +43,9 @@ function App() {
     <div className='App'>
       <Header />
       <div className='container'>
-        <Form
-          request={request}
-          setRequest={setRequest}
-          loading={loading}
-        />
-        <Results response={response} loading={loading} />
+          <Form request={request} setRequest={setRequest} loading={loading} />
+          <History />
+          <Results response={response} loading={loading} />
       </div>
       <Footer />
     </div>
