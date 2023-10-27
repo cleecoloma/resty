@@ -1,53 +1,78 @@
 import './App.scss';
-import React, { useState, useEffect } from 'react';
+import React, { useReducer, useEffect } from 'react';
 import Header from './Components/Header';
 import Form from './Components/Form';
+import History from './Components/History';
 import Results from './Components/Results';
 import Footer from './Components/Footer';
 import axios from 'axios';
 
+const appReducer = (state, action) => {
+  switch (action.type) {
+    case 'updateRequest':
+      return { ...state, request: action.payload };
+    case 'updateResponse':
+      return { ...state, response: action.payload };
+    case 'updateLoading':
+      return { ...state, loading: action.payload };
+    case 'updateHistoryArray':
+      return {
+        ...state,
+        historyArray: [...state.historyArray, action.payload],
+      };
+    default:
+      return state;
+  }
+};
+
 function App() {
-  const [request, setRequest] = useState({
-    method: '',
-    url: '',
-    body: '',
+  const [state, dispatch] = useReducer(appReducer, {
+    request: {
+      method: '',
+      url: '',
+      body: '',
+    },
+    response: null,
+    loading: false,
+    historyArray: [],
   });
-  const [response, setResponse] = useState(null);
-  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        setLoading(true);
+        dispatch({ type: 'updateLoading', payload: true });
         const response = await axios({
-          method: request.method,
-          url: request.url,
-          data: request.body,
+          method: state.request.method,
+          url: state.request.url,
+          data: state.request.body,
         });
         const { data, headers } = response;
-        setResponse({ data, headers });
+        const historyItem = {
+          method: state.request.method,
+          url: state.request.url,
+          response: { data, headers },
+        };
+        dispatch({ type: 'updateHistoryArray', payload: historyItem });
+        dispatch({ type: 'updateResponse', payload: { data, headers } });
       } catch (error) {
         console.error(error);
       } finally {
-        setLoading(false);
+        dispatch({ type: 'updateLoading', payload: false });
       }
     };
 
-    if (request.method || request.url || request.body) {
+    if (state.request.method || state.request.url || state.request.body) {
       fetchData();
     }
-  }, [request]);
+  }, [state.request]);
 
   return (
     <div className='App'>
       <Header />
       <div className='container'>
-        <Form
-          request={request}
-          setRequest={setRequest}
-          loading={loading}
-        />
-        <Results response={response} loading={loading} />
+        <Form dispatch={dispatch} loading={state.loading} />
+        <History historyArray={state.historyArray} />
+        <Results response={state.response} loading={state.loading} />
       </div>
       <Footer />
     </div>
