@@ -9,12 +9,12 @@ function History({ historyArray }) {
     <div className='history-container'>
       <h4>History</h4>
       {historyArray ? (
-        <Accordion defaultActiveKey='0'>
+        <Accordion defaultActiveKey={null}>
           {historyArray.map((item, index) => (
             <Accordion.Item key={index} eventKey={index.toString()}>
-              <Accordion.Header>
-                <p>URL = {item.url}</p>
-                <p>Method = {item.method}</p>
+              <Accordion.Header className='centered-header'>
+                <p className='space-between-p'>URL = {item.url}</p>
+                <p>Method = {item.method.toUpperCase()}</p>
               </Accordion.Header>
               <Accordion.Body>
                 <div>
