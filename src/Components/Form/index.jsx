@@ -38,9 +38,9 @@ function Form({ dispatch, loading}) {
         URL:
         <input
           type='text'
-          value={state.method}
+          value={state.url}
           onChange={(e) =>
-            formDispatch({ type: 'updateMethod', payload: e.target.value })
+            formDispatch({ type: 'updateUrl', payload: e.target.value })
           }
         />
       </label>

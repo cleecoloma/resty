@@ -16,7 +16,10 @@ const appReducer = (state, action) => {
     case 'updateLoading':
       return { ...state, loading: action.payload };
     case 'updateHistoryArray':
-      return [ ...historyArray, action.payload ];
+      return {
+        ...state,
+        historyArray: [...state.historyArray, action.payload],
+      };
     default:
       return state;
   }
