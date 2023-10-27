@@ -1,5 +1,6 @@
 import './History.scss';
 
+
 function History() {
   return (
     <div className='history-container'>

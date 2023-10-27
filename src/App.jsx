@@ -15,6 +15,8 @@ const appReducer = (state, action) => {
       return { ...state, response: action.payload };
     case 'updateLoading':
       return { ...state, loading: action.payload };
+    case 'updateHistoryArray':
+      return [ ...historyArray, action.payload ];
     default:
       return state;
   }
@@ -29,6 +31,7 @@ function App() {
     },
     response: null,
     loading: false,
+    historyArray: [],
   });
 
   useEffect(() => {
@@ -41,6 +44,12 @@ function App() {
           data: state.request.body,
         });
         const { data, headers } = response;
+        const historyItem = {
+          method: state.request.method,
+          url: state.request.url,
+          response: { data, headers },
+        };
+        dispatch({ type: 'updateHistoryArray', payload: historyItem });
         dispatch({ type: 'updateResponse', payload: { data, headers } });
       } catch (error) {
         console.error(error);
@@ -58,9 +67,9 @@ function App() {
     <div className='App'>
       <Header />
       <div className='container'>
-          <Form dispatch={dispatch} loading={state.loading} />
-          <History />
-          <Results response={state.response} loading={state.loading} />
+        <Form dispatch={dispatch} loading={state.loading} />
+        <History historyArray={state.historyArray} />
+        <Results response={state.response} loading={state.loading} />
       </div>
       <Footer />
     </div>
